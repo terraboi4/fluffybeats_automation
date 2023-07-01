@@ -1,6 +1,8 @@
 //sorry for the bad code...
 
-const ncs = require('nocopyrightsounds-api');
 const chatgpt = require('./chatgpt');
+const music = require('./music');
 
-chatgpt.fetch();
+music.generateCredits().then((credits) => {
+	console.log(credits);
+});
