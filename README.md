@@ -10,7 +10,7 @@ Anyway, here's how it works:
 I use the api [nocopyrightsounds-api](https://www.npmjs.com/package/nocopyrightsounds-api) to fetch the music by a specific genre which is randomly generated. Then I download the music to my computer. I also save the song name and artist(s) to include in the description. After that, I use ffmpeg to concatenate them into one large music file. Lastly, I delete the smaller files.
 
 ## 2. Video
-I use the [kyoko api](https://github.com/elliottophellia/kyoko) to find the pictures.
+I use the GIPHY api along with [@charlos's](https://giphy.com/charlos_) images.
 
 ## 3. Concantenation
 I use ffmpeg to concatenate the audio and the image together.
