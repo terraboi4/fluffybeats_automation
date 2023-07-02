@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "audioconcat": "^0.1.4",
     "axios": "^1.4.0",
     "dotenv": "^16.3.1",
     "nocopyrightsounds-api": "^3.0.0"

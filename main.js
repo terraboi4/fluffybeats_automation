@@ -2,7 +2,6 @@
 
 const chatgpt = require('./chatgpt');
 const music = require('./music');
+const images = require('./images');
 
-music.generateCredits().then((credits) => {
-	console.log(credits);
-});
+images.getImage('@charlos_');
