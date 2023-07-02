@@ -3,6 +3,7 @@
     "audioconcat": "^0.1.4",
     "axios": "^1.4.0",
     "dotenv": "^16.3.1",
+    "ffmpeg": "^0.0.4",
     "nocopyrightsounds-api": "^3.0.0"
   }
 }

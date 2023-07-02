@@ -29,14 +29,37 @@ async function download(genre) {
 		genre: genre,
 	});
 
-	music.forEach(async (song) => {
-		const { data: audioFile } = await axios.get(song.download.regular, {
-			responseType: 'arraybuffer',
-		});
+	await Promise.all(
+		music.map(async (song) => {
+			const { data: audioFile } = await axios.get(song.download.regular, {
+				responseType: 'arraybuffer',
+			});
 
-		await fs.writeFile(`media/${song.name}.mp3`, audioFile);
-	});
-	console.log('Music downloaded \n');
+			await fs.writeFile(`media/${song.name}.mp3`, audioFile);
+		})
+	);
+	//https://stackoverflow.com/questions/32511789/looping-through-files-in-a-folder-node-js
+	const songs = [];
+	const dir = await fs.opendir('media');
+	for await (const dirent of dir) {
+		if (dirent.name.includes('.mp3')) {
+			songs.push('media/' + dirent.name);
+		}
+	}
+	console.log('Concatenating files... \n');
+	audioconcat(songs)
+		.concat('media/songs.mp3')
+		.on('start', function (command) {
+			console.log('ffmpeg process started:', command);
+		})
+		.on('error', function (err, stdout, stderr) {
+			console.error(err);
+			console.error('ffmpeg stderr:', stderr);
+		})
+		.on('end', function (output) {
+			console.error('Audio created in:', output);
+			deleteSongs();
+		});
 }
 
 async function deleteSongs() {
@@ -49,9 +72,9 @@ async function deleteSongs() {
 
 		for (const file of files) {
 			const filePath = path.join(folderPath, file);
-			const fileStats = await fs.stat(filePath);
-
-			await fs.unlink(filePath);
+			if (!filePath.includes('songs')) {
+				await fs.unlink(filePath);
+			}
 		}
 
 		console.log('Songs deleted.\n');
